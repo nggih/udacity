@@ -20578,21 +20578,14 @@ QpVEgBVCCCGEEEIIVfL/AcllsaiUvpWwAAAAAElFTkSuQmCC
 -- None : 1.37
 -- left : -4.59</code></pre>
 <p>My intuition aligns with the result of the investigation that it will reward None bigger as the optimal policy and punish the bad actions such as going forward and turn left. However, because the case is in US, right is permitted. That is why <code>'right'</code> is rewarded but only a little.</p>
-<p>I think this one is unusual:</p>
+<p>I think this one is sub-optimal:</p>
 
 <pre><code>('left', 'green', 'right', 'right')
  -- forward : 0.00
  -- right : 0.03
  -- None : 0.00
  -- left : 0.00</code></pre>
-<p>Why does it give a little reward for turning right when the waypoint is to the left? Why does not it punish anything?</p>
-<p>I think this one below is unefficient one, the waypoint is to the left but it still reward the <code>'right'</code>.</p>
-
-<pre><code> ('left', 'red', 'None', 'None')
- -- forward : -3.58
- -- right : 0.19
- -- None : 0.82
- -- left : -4.10</code></pre>
+<p>We can see the multiple 0.0 values on this state, because the agent had not learnt any of the rewards yet. This is considered as sub-optimal because It give a little reward for turning right even though the waypoint is to the left. I expect it will take the left when the waypoint is to the left. It did not take this action maybe because there were not sufficient states to learn. It was initialized with 0.0 for all values as in the <code>'agent.py'</code> and it had only explored the right action, resulting a very small positive reward.</p>
 
 </div>
 </div>
